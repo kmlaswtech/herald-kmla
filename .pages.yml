@@ -4,7 +4,7 @@
 # Field rules are enforced again by the newspaper server, which skips invalid files.
 
 media:
-  input: media
+  input: content/media
   output: /media
   extensions: [jpg, jpeg, png, webp, pdf]
   rename: safe
@@ -13,7 +13,7 @@ content:
   - name: articles
     label: Stories
     type: collection
-    path: articles
+    path: content/articles
     format: yaml-frontmatter
     filename: "{primary}.md"
     view:
@@ -62,7 +62,7 @@ content:
   - name: editions
     label: Semester editions
     type: collection
-    path: editions
+    path: content/editions
     format: yaml
     filename: "edition-{primary}.yml"
     view:
@@ -101,7 +101,7 @@ content:
   - name: polls
     label: Polls
     type: collection
-    path: polls
+    path: content/polls
     format: yaml
     filename: "{primary}.yml"
     view:

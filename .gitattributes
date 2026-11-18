@@ -1,0 +1,8 @@
+# Prettier writes LF; keep Windows checkouts from turning files into CRLF.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.pdf binary

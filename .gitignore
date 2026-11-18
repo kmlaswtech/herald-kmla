@@ -1,0 +1,11 @@
+node_modules/
+/build/
+/.react-router/
+/public/media/
+/.data/
+/test-results/
+/playwright-report/
+/blob-report/
+/coverage/
+.env.local
+.eslintcache

@@ -1,0 +1,198 @@
+:root {
+  --paper-texture: url("/herald/brand/hanji.jpg");
+  --wash: url("/herald/brand/lilac.jpg");
+  --wash-accent: url("/herald/brand/coral.jpg");
+  --button-selected: url("/herald/brand/button-rose.png");
+  --button-primary: url("/herald/brand/button-green.png");
+  --selected-ink: #fff8f0;
+  --sprig: url("/herald/brand/blossom.jpg");
+}
+
+:root[data-season="summer"] {
+  --paper: #ecf3e4;
+  --ink: #12302a;
+  --muted: #39584e;
+  --action: #1d4e76;
+  --action-foreground: #f2f8f4;
+  --rose: #14713f;
+  --rule: #a7bba8;
+  --paper-texture: url("/herald/themes/summer/paper.jpg");
+  --wash: url("/herald/themes/summer/wash.jpg");
+  --wash-accent: url("/herald/themes/summer/accent.jpg");
+  --button-selected: url("/herald/themes/summer/selected.png");
+  --button-primary: url("/herald/themes/summer/primary.png");
+  --selected-ink: #fff;
+  --sprig: url("/herald/themes/summer/sprig.jpg");
+}
+
+:root[data-season="autumn"] {
+  --paper: #f6e9cb;
+  --ink: #2c1a12;
+  --muted: #5a4032;
+  --action: #8a1c28;
+  --action-foreground: #fbefd8;
+  --rose: #a8211d;
+  --rule: #bcaa87;
+  --paper-texture: url("/herald/themes/autumn/paper.jpg");
+  --wash: url("/herald/themes/autumn/wash.jpg");
+  --wash-accent: url("/herald/themes/autumn/accent.jpg");
+  --button-selected: url("/herald/themes/autumn/selected.png");
+  --button-primary: url("/herald/themes/autumn/primary.png");
+  --selected-ink: #2c1a12;
+  --sprig: url("/herald/themes/autumn/sprig.jpg");
+}
+
+:root[data-season="winter"] {
+  --paper: #f3f5f6;
+  --ink: #1c2430;
+  --muted: #465365;
+  --action: #222c3c;
+  --action-foreground: #f3f5f6;
+  --rose: #a51f2f;
+  --rule: #b5bec9;
+  --paper-texture: url("/herald/themes/winter/paper.jpg");
+  --wash: url("/herald/themes/winter/wash.jpg");
+  --wash-accent: url("/herald/themes/winter/accent.jpg");
+  --button-selected: url("/herald/themes/winter/selected.png");
+  --button-primary: url("/herald/themes/winter/primary.png");
+  --selected-ink: #fff;
+  --sprig: url("/herald/themes/winter/sprig.jpg");
+}
+
+.season-sprig {
+  width: 120px;
+  height: 42px;
+  background: var(--sprig) center / cover;
+  mix-blend-mode: multiply;
+  margin-right: auto;
+}
+
+.display-menu {
+  position: relative;
+}
+.display-menu > summary {
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+.display-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.display-menu[open] > summary {
+  border-image-source: var(--button-selected);
+  color: var(--selected-ink);
+}
+.display-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 20;
+  display: grid;
+  gap: 14px;
+  width: 340px;
+  max-width: calc(100vw - 32px);
+  padding: 12px 14px 14px;
+  border: 10px solid transparent;
+  border-image: url("/herald/brand/button-paper.png") 24 fill / 10px / 0 round;
+  filter: drop-shadow(0 3px 6px rgb(40 30 20 / 18%))
+    drop-shadow(0 12px 18px rgb(40 30 20 / 14%));
+  color: var(--ink);
+}
+.display-label,
+.season-caption label {
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.layout-choice {
+  display: grid;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+}
+.layout-choice .layout-switch a {
+  flex: 1;
+}
+.season-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  align-items: baseline;
+  font-size: 11px;
+}
+.season-caption span {
+  color: var(--muted);
+  text-transform: capitalize;
+}
+.season-control input {
+  appearance: none;
+  display: block;
+  width: calc(80% + 24px);
+  height: 32px;
+  margin: 2px auto 0;
+  background: transparent;
+  cursor: pointer;
+}
+.season-control input::-webkit-slider-runnable-track {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--rule);
+}
+.season-control input::-moz-range-track {
+  height: 4px;
+  border-radius: 4px;
+  background: var(--rule);
+}
+.season-control input::-webkit-slider-thumb {
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  margin-top: -10px;
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  background: var(--action);
+  box-shadow: 0 0 0 1px var(--action);
+}
+.season-control input::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--paper);
+  border-radius: 50%;
+  background: var(--action);
+  box-shadow: 0 0 0 1px var(--action);
+}
+.season-labels {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+.season-labels button {
+  min-height: 34px;
+  padding: 0 2px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font:
+    500 12px/1.2 "Figtree Variable",
+    sans-serif;
+  cursor: pointer;
+}
+.season-labels button[aria-pressed="true"] {
+  color: var(--rose);
+  font-weight: 750;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.season-labels button:hover {
+  color: var(--rose);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+@media (max-width: 700px) {
+  .utility {
+    position: static;
+    gap: 8px;
+    padding: 12px 16px 0;
+  }
+}

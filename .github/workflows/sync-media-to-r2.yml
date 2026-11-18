@@ -1,6 +1,5 @@
 # Copies Pages CMS uploads to the Cloudflare R2 bucket the newspaper serves media from.
-# This runs only once this folder is the root of the separate content repository.
-# Placeholders until R2 access exists: set these in the content repository's settings.
+# Off until R2 access exists: set these in this repository's settings.
 #   Secrets:   R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY
 #   Variables: R2_ACCOUNT_ID, R2_BUCKET
 name: Sync media to R2
@@ -8,7 +7,7 @@ name: Sync media to R2
 on:
   push:
     branches: [main]
-    paths: ["media/**"]
+    paths: ["content/media/**"]
   workflow_dispatch:
 
 permissions:
@@ -19,8 +18,8 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ vars.R2_BUCKET != '' }}
     steps:
-      - uses: actions/checkout@v4
-      # Objects keep their `media/` prefix, so HERALD_MEDIA_BASE_URL is just the bucket's
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # Objects are stored under `media/`, so HERALD_MEDIA_BASE_URL is just the bucket's
       # public origin. No --delete: removing a file from git keeps it in R2 for old links.
       - name: Upload new and changed files
         env:
@@ -28,6 +27,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: auto
         run: >
-          aws s3 sync media "s3://${{ vars.R2_BUCKET }}/media"
+          aws s3 sync content/media "s3://${{ vars.R2_BUCKET }}/media"
           --endpoint-url "https://${{ vars.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com"
           --exclude ".gitkeep"
