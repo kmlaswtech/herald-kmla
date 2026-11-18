@@ -1,0 +1,145 @@
+# Pages CMS configuration for Minjok Herald content.
+# This folder stands in for the separate content repository (for example
+# `minjok-herald-content`); when that repository exists, this folder becomes its root.
+# Field rules are enforced again by the newspaper server, which skips invalid files.
+
+media:
+  input: media
+  output: /media
+  extensions: [jpg, jpeg, png, webp, pdf]
+  rename: safe
+
+content:
+  - name: articles
+    label: Stories
+    type: collection
+    path: articles
+    format: yaml-frontmatter
+    filename: "{primary}.md"
+    view:
+      fields: [title, category, date, draft]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+      - name: category
+        label: Section
+        type: select
+        required: true
+        options:
+          values: [Feature, News, Editorial, misc]
+      - name: deck
+        label: Summary
+        type: text
+        required: true
+      - name: date
+        label: Publication date
+        type: date
+        required: true
+      - name: image
+        label: Cover image
+        type: image
+        required: true
+      - name: credit
+        label: Image caption / credit
+        type: string
+      - name: draft
+        label: Draft (hidden from the site)
+        type: boolean
+        default: false
+      - name: body
+        label: Story text
+        description: Separate paragraphs with a blank line.
+        type: text
+        required: true
+
+  - name: editions
+    label: Semester editions
+    type: collection
+    path: editions
+    format: yaml
+    filename: "edition-{primary}.yml"
+    view:
+      fields: [number, title, season]
+      primary: number
+      default:
+        sort: number
+        order: desc
+    fields:
+      - name: number
+        label: Edition number
+        description: Editions 49–72 are already in the permanent archive.
+        type: number
+        required: true
+      - name: title
+        label: Edition title
+        type: string
+        required: true
+      - name: season
+        label: Season or month
+        type: string
+        required: true
+      - name: cover
+        label: Cover image
+        type: image
+      - name: pdf
+        label: Edition PDF
+        type: file
+        required: true
+        options:
+          extensions: [pdf]
+      - name: pages
+        label: Page count
+        type: number
+
+  - name: polls
+    label: Polls
+    type: collection
+    path: polls
+    format: yaml
+    filename: "{primary}.yml"
+    view:
+      fields: [question, date, closed, draft]
+      primary: question
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: question
+        label: Question
+        type: string
+        required: true
+      - name: date
+        label: Posted on
+        type: date
+        required: true
+      - name: options
+        label: Choices
+        description: 2 to 6 choices. Do not edit a choice after voting starts; its votes would be dropped.
+        type: string
+        required: true
+        list:
+          min: 2
+          max: 6
+      - name: closes_at
+        label: Closes at (KST)
+        description: Optional, 24-hour Korea time, for example 2026-12-01 18:00.
+        type: string
+        pattern:
+          regex: '^\d{4}-\d{2}-\d{2} ([01]\d|2[0-3]):[0-5]\d$'
+          message: Use YYYY-MM-DD HH:mm in Korea time.
+      - name: closed
+        label: Closed early
+        description: A closed poll never reopens.
+        type: boolean
+        default: false
+      - name: draft
+        label: Draft (hidden from the site)
+        type: boolean
+        default: false
